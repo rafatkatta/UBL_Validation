@@ -1,13 +1,40 @@
 import json
 import pytest
-from app import app
+#from app import app, db
+from database import User
+from flask import Flask, Blueprint
+
+# Erstelle eine Flask-App
+app = Flask(__name__)
+
+# Füge die Blueprint-Konfiguration hinzu (Beispielkonfiguration)
+# admin_interface_bp = Blueprint('admin_interface', __name__)
+# admin_interface_bp.config = {}  # Füge die Konfigurationseinstellungen hinzu
+
+# Füge die Blueprint zur App hinzu
+# app.register_blueprint(admin_interface_bp)
+
+# Führe deine Tests aus...
+
 
 @pytest.fixture
 
 def client():
     app.config['TESTING'] = True
     with app.test_client() as client:
-        yield client
+        with app.app_context():
+            db.create_all()  # Erstelle die Tabellen in der Testdatenbank
+            yield client
+            db.session.remove()
+            db.drop_all()  # Lösche die Tabellen nach dem Test
+
+
+# def test_create_db_user(client):
+#     # Beispiel: Erstelle einen Benutzer in der Testdatenbank
+#     new_user = User(username='test_user', email='test@example.com', api_key='test_key', api_passkey='test_passkey')
+#     db.session.add(new_user)
+#     db.session.commit()
+
 
 def test_create_user(client):
     # Beispiel-Daten für den zu erstellenden Benutzer
