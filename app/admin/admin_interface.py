@@ -6,12 +6,10 @@ from database import configure_database, db
 admin_interface_bp = Blueprint('admin_interface', __name__)
 
 # Datenstruktur für API-Keys und E-Mails der Benutzer
-# users = [
-#    {'username': 'user1' , 'email': 'user1@example.com' ,'api_key': 'key1', 'api_passkey': 'passkey1'},
-#    {'username': 'user2' , 'email': 'user2@example.com' ,'api_key': 'key2', 'api_passkey': 'passkey2'}
-# ]
-
-# configure_database(admin_interface_bp)
+users = [
+   {'username': 'user1' , 'email': 'user1@example.com' ,'api_key': 'key1', 'api_passkey': 'passkey1'},
+   {'username': 'user2' , 'email': 'user2@example.com' ,'api_key': 'key2', 'api_passkey': 'passkey2'}
+]
 
 NONE_EXIST_USER= 'Benutzer existiert nicht.'
 
